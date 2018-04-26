@@ -1,0 +1,51 @@
+'''
+file = open('/Users/lenovo/Desktop/file1.txt','w')      #文件创建与调取  'w'表示如果有这个文件，就直接改写，如果没有则创建
+file.write('try it???')     #txt文件写入的方法
+
+what_he_does = ' plays '            #变量的加法运作方式
+his_instrument = " guitar"
+his_name = ' Bruse lee'
+artist_intro = his_name + what_he_does + his_instrument
+print(artist_intro)
+
+num = 1         #字符的类型与类型转换（字符的类型影响加法的运作）
+string = '1'
+num1 = str(num)
+word = num * 3
+woed1 = 'word' * 3
+print(word)
+print(woed1)
+
+word = 'a looooooooong word'        #字符串的应用 len函数
+num = 10
+string = 'bang'
+total = string * (len(word) - num)   #不同类型变量的加乘运算方式不一样
+print(total)
+
+name =  'My Name is Mike'      #：符号代表分割，分割方向与：的位置有关，也可以用：来截取某一段
+print(name[0])
+print(name[-1])
+print(name[11:14])
+print(name[11:15])
+print(name[5:])
+print(name[:5])
+
+word = 'friends'
+find_the_evil_in_your_friends =word[0] + word[2:4] +  word[-3:-1]   #字符串的加法
+print(find_the_evil_in_your_friends)
+
+phone_number = '1386-666-0006'          #利用字符串进行操作
+hiding_number = phone_number.replace(phone_number[:9],'*'*9)   #replace方法
+print(hiding_number)
+
+search = '168'                  #长串字符串的操作，可以直接在print函数里面安排，在字符串符号''外加空格没用
+num_a = '1386-168-0006'         #find函数寻找自变量在因变量中的第一个字符（起始）的位置
+num_b = '1681-222-0006'
+print(search + ' is at ' + str(num_a.find(search)) +  ' to ' +str(num_a.find(search)+ len(search))+  ' of num_a')
+print(search + ' is at ' + str(num_b.find(search)) +  ' to ' +str(num_b.find(search)+ len(search))+  ' of num_b')
+
+print('{} a word she can get what she {} for. '.format("With","came"))     #formant函数可以用来填{}中的空,但是{}中不能有空格
+print('{preposition} a word she can get what she {verb} for.'.format(preposition = 'With',verb = "came"))
+city = input("write down the name of city:")
+url = "http://apistore.baidu.com/microservice/weather?citypinyin={}".format(city)
+'''
