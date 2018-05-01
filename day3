@@ -1,0 +1,150 @@
+'''
+a_list = [1,2,3]
+print(sum(a_list))
+
+point1 = random.randrange(1,7)
+point2 = random.randrange(1,7)
+point3 = random.randrange(1,7)
+print(point1,point2,point3)
+
+import random               #练习题
+def saizi(number = 3,points = None):
+	print('<<<<<<<   ROLL  THE  DICE!    >>>>>>>')
+	if points is None:
+		points = []
+	while number > 0:
+		point = random.randrange(1,7)
+		points.append(point)
+		number = number -1
+	return points
+def roll_result(total):
+	isBig = 11<=total<=18
+	isSmall = 3<=total<=10
+	if isBig:
+		return 'Big'
+	elif isSmall:
+		return 'Small'
+def start_game(duzhu):
+	user_choice = input('Enter your choice,"Big or Small":')
+	choice = ['Big','Small']
+	if user_choice in choice:
+		b = saizi()
+		c = roll_result(sum(b))
+		if c == user_choice:
+			print('The point are {},you win!'.format(b))
+			duzhu = duzhu * 2
+		else:
+			print('The point are {},you lose!'.format(b))
+			duzhu = 0
+	else:
+		print('Invalid Words')
+		start_game(duzhu)
+	return duzhu
+def game(benjin):
+	print('<<<<<<<   GAME    STARTS!    >>>>>>>')
+	duzhu = int(input('How much you wanna bet :'))
+	shenxiade = benjin - duzhu
+	if shenxiade >= 0:
+		shouyi = start_game(duzhu)
+		if shouyi == 0:
+			print('You lost ',duzhu,' ,you have ',shenxiade,' now')
+			return shenxiade
+		else:
+			shouru = shenxiade+shouyi
+			print('You gaind ',duzhu,' ,you have ',shouru,' now')
+			return shouru
+	else:
+		print("You don't have so much money")
+		game(benjin)
+
+benjin = 1000
+while benjin > 0:
+	youxibi = game(benjin)
+	benjin = youxibi
+else:print('LLLLLLLLLLLLLLLLLLoser')
+
+def phone():            #练习题
+	CN_mobile = ['135','134']
+	Cn_union = ['130','131']
+	phone_number = input('Please enter your phone number:')
+	if len(phone_number) > 10:
+		qiansanwei = phone_number[0:3]
+		if qiansanwei in CN_mobile:
+			print('Oprrator: CN_mobile\n',"We're sending verification code via text to you phone number".format(phone_number))
+		elif qiansanwei in Cn_union:
+			print('Oprrator: CN_union\n',"We're sending verification code via text to you phone number".format(phone_number))
+		else:
+			print('loser',qiansanwei)
+	else:
+		print('A wrong phone number')
+		phone()
+phone()
+
+Weekday = ['Monday','Tuesday','Wednesday','Thursday','Friday']
+print(Weekday[0])
+all_in_lise = [1,1.0,'a word',print(1),True,[1,2],(1,2),{'key':'value'}]
+
+fruit = ['pineapple','pear']
+fruit.insert(1,'grape')     #在指定的位置插入元素，原位置的元素自动往后排，列表本身长度不够的话默认放在最后
+fruit[2:2] = ['orange','banana']     #在指定的两个位置中间把原来的元素替换插入
+fruit.remove('pear')        #删除某个元素,只能删除一个
+#fruit[0] = 'Grapefruit'        某一个位置的直接替换更改
+# del fruit[0:2]        #直接删除指定位置区间的元素
+print(fruit)
+
+periodic_table = ["H",'He','Li','Be','B',"C",'N','O','F','Ne']
+print(periodic_table[0])
+print(periodic_table[-2])
+print(periodic_table[0:3])
+print(periodic_table[-10:-7])
+print(periodic_table[-10:])
+print(periodic_table[:9])
+
+NaSDAQ_code = {'BIDU':'Baidu','SINA':'Sina'}        #字典的定义，添加与删除，键值
+NaSDAQ_code['YOKU'] = 'Youku'   #通过键来索引值，字典的键值用[]
+NaSDAQ_code.update({'FB':'Facebook','TSLA':'Tesla'})        #添加多个元素
+del NaSDAQ_code['FB']
+print(NaSDAQ_code)      #打印中每个元素的顺序随机
+
+letters = ('a','b','c','d','e','f','g')     #元组的查看与索引同列表，元组就是无法修改的列表
+print(letters[0])
+
+a_set = {1,2,3,4}
+a_set.add(5)        #集合添加元素
+a_set.discard(5)    #集合删除元素
+print(a_set)
+
+num_list = ['6','4','1','7','2','3','5','g','d','MY']
+#print(sorted(num_list))     #sorted函数按照长短、大小、英文字母表顺序给元素排列
+#print(sorted(num_list,reverse=True))    #逆序排列
+sts = ['f','g','t']
+for a,b in zip(num_list,sts):       #zip可以适应两个列表,按顺序遍历
+	print(b,'is',a)
+
+a = []
+for i in range(1,11):
+	a.append(i)
+b = [i for i in range(1,11)]    #推导式，更加方便便捷
+
+import time     #引入时间模块
+a = []
+t0 = time.clock()
+for i in range(1,200000):
+	a.append(i)
+print(time.clock() -  t0,'seconds')     #time.clock()函数表示代码从开始到当前位置的运算时间
+t0 = time.clock()
+b = [i for i in range(1,200000)]    #用来证明推导式用的时间更短
+print(time.clock() - t0,'secods')
+print(time.clock())
+
+a = [i**2 for i in range(1,10)]         #列表推导式举例
+c = [j+1 for j in range(1,10)]
+k = [n for n in range(1,10)if n%2 ==0]
+z = [letter.lower() for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ']
+d = {i:i+1 for i in range(4)}
+g = {i:j for i,j in zip(range(1,6),'abcde')}
+m = {i:j.upper() for i,j in zip(range(1,6),'abcde')}        #upper是大写函数
+letters = ['a','b','c','d','e','f','g']
+for num,letter in enumerate(letters):       #enumerate函数用来对应列表中每个元素的位置
+	print(letter,'is',num+1)
+'''
