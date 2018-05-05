@@ -1,0 +1,171 @@
+'''
+lyric = 'The night begin to shine'
+words = lyric.split()       #split可以分割字符串中的空格
+print(words)
+
+import string
+path = '/Users/lenovo/Desktop/Walden.txt'
+with open(path,'rb') as text:
+	words = [raw_word.decode().strip(string.punctuation).lower() for raw_word in text.read().split()]   #decode转变字符类型，string函数去掉连在一起的标点
+	words_index = set(words)        #set将列表转化成集合
+	counts_dict = {index:words.count(index) for index in words_index}       #count是频率函数
+for word in sorted(counts_dict,key=lambda x:counts_dict[x],reverse=True):       #lamba函数是让后面的值以字典中的值排列，sorted分类整理
+	print('{} -- {}times'.format(word,counts_dict[word]))
+
+class CocaCola():       #class类
+	it_taste = 'So good!'
+coke_for_bum = CocaCola()
+coke_for_president = CocaCola()
+print(coke_for_bum.it_taste)
+print(coke_for_president.it_taste)
+
+class CocaCola:
+	formula = ['caffeine','sugar','water','soda']       #类的变量，也是类的属性
+coke_for_me = CocaCola()    #类的赋值成为类的实例化，被赋值的对象成为实例
+coke_for_you = CocaCola()   #类的属性引用就是在类的后面加上.，之后会自动联想出属性，类的属性所以实例共享
+for element in coke_for_me.formula:
+	print(element)
+
+class CocaCola:
+	formula = ['caffeine','sugar','water','soda']
+coke_for_China = CocaCola()
+coke_for_China.local_logo = '可口可乐'  #创建实例属性,直接在实例后面用.给实例创建一个新的属性
+print(coke_for_China.local_logo)
+
+class CocaCola:
+	formula = ['caffeine', 'sugar', 'water', 'soda']
+	def drink(self):print('Energy!')    #类的函数与实例函数，self为参数,也是实例本身
+coke = CocaCola()
+coke.drink()        #实例的方法 coke.drink == Cocacola.drink(coke)，也就是前面的写法其实实际上等于后面的写法
+
+class CocaCola:
+	formula = ['caffeine', 'sugar', 'water', 'soda']
+	def drink(self,how_much):
+		if how_much == 'a sip':
+			print('Cooooooooool~')
+		elif how_much == 'whole bottle':
+			print('Headache!')
+ice_coke = CocaCola()
+ice_coke.drink('a sip')
+
+class CocaCola():
+	formula = ['caffeine', 'sugar', 'water', 'soda']
+	def __init__(self):     #内置函数,先自动执行函数里面的内容，从而后面的函数不需要再引用init函数
+		self.local_logo = '可口可乐'
+	def drink(self):
+		print('Energy!')
+coke = CocaCola()
+coke.drink()
+print(coke.local_logo)
+
+class CocaCola:
+	formula = ['caffeine', 'sugar', 'water', 'soda']
+	def __init__(self,logo_name):
+		self.local_logo = logo_name
+		for element in self.formula:print('Coke has {}!'.format(element))
+	def drink(self):
+		print('Energy!')
+coke = CocaCola('可口可乐')
+print(coke.local_logo)
+
+class CocaCola:     #总品牌，父类
+	calories = 140
+	sodium = 45
+	total_carb = 39
+	caffeine = 34
+	ingredients = ['High Fructose Corn Syrup','Carbonated Water','Phospgoric Acid',
+	               'Natural Flavors','Caramel Color','Caffeine']
+	def __init__(self,logo_name):
+		self.local_logo = logo_name
+	def drink(self):
+		print('You got {} cal energy!'.format(self.calories))
+class CaffeineFree(CocaCola):       #类的继承，在新的类的括号中直接添加原来的类，子类完全继承所有属性，只是某些属性有修改
+	caffeine = 0        #对原有属性进行覆盖
+	ingredients = ['High Fructose Corn Syrup','Carbonated Water','Phospgoric Acid',
+	               'Natural Flavors','Caramel Color']
+coke_a = CaffeineFree('Cocacola-FREE')      #括号里面是logo_name的参数
+coke_a.drink()
+
+class TestA:
+	attr = 1
+	def __init__(self):
+		self.attr = 5
+obj_a = TestA()
+obj_b = TestA()
+obj_c = TestA()
+obj_a.attr = 42
+print(obj_a.attr)       #改变类的属性可以改变实例的属性
+print(obj_b.attr)       #改变实例的属性不会改变类的属性
+print(TestA.__dict__)   #dict显示类的属性，类的属性与实例的属性并不相关
+print(obj_a.__dict__)   #Python的引用是先引用实例的某一个属性，如果实例没有定义该属性，则引用实例所属的类的属性
+
+ln_path = '/Users/lenovo/Desktop/pycharm/last_name.txt'
+fn_path = '/Users/lenovo/Desktop/pycharm/first_name.txt'
+nn_path = '/Users/lenovo/Desktop/pycharm/nick_name.txt'
+fn = []
+ln1 = []    #单字名
+ln2 = []    #双字名
+nn = []
+with open(fn_path,'r') as f:
+	for line in f.readlines():
+		fn.append(line.split('\n')[0])      #以换行符为分割标识，遇到换行符进行分割，并且两个换行符之间的字符归为一个字符，重新创建列表
+with open(ln_path,'r') as f:
+	for line in f.readlines():
+		if len(line.split('\n')[0]) ==1:
+			ln1.append(line.split('\n')[0])
+		else:
+			ln2.append(line.split('\n')[0])
+with open(nn_path,'r') as f:
+	for line in f.readlines():
+		nn.append(line.split('\n')[0])
+
+import random
+class FakeUser:
+	def fake_name(self,amount = 1,one_word = False,tow_words = False):
+		n = 0
+		while n <= amount:
+			if one_word:
+				full_name = random.choice(fn) + random.choice(ln1)
+			elif tow_words:
+				full_name = random.choice(fn) + random.choice(ln2)
+			else:
+				full_name = random.choice(fn) + random.choice(ln1 + ln2)
+			yield full_name         #yield函数，使用yield返回结果，可以得到类似于range函数的效果
+			n+=1
+	def fake_gender(self,amount = 1):
+		n = 0
+		while n <= amount:
+			gender = random.choice(['男', '女', '未知'])
+			yield gender
+			n+=1
+class SnsUser(FakeUser):
+	def get_follwoer(self,amount = 1,few = True,a_lot = False):
+		followers = 0
+		n = 0
+		while n <= amount:
+			if few:
+				followers = random.randrange(1, 50)
+			elif a_lot:
+				followers = random.randrange(200, 10000)
+			yield followers
+			n+=1
+	def get_nick_name(self,amount = 1):
+		n = 0
+		while n <= amount:
+			nick_name = full_name = random.choice(nn)
+			yield nick_name
+			n+=1
+user_a = FakeUser()
+user_b = SnsUser()
+for name in user_a.fake_name(10):
+	print(name,end=' ')
+	for gender in user_a.fake_gender(0):
+		print(gender,end=' ')
+	for amount in user_b.get_follwoer(0):
+		print(amount,end=' ')
+	for nick in user_b.get_nick_name(0):
+		print(nick)
+'''
+		
+
+
