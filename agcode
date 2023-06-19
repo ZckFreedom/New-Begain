@@ -1,0 +1,151 @@
+k<u> := FiniteField(2^6);
+C1<x,y,z,w> := ProjectiveSpace(k,3);
+Cc := Curve(C1,[y^3-x^3+w^3, z^3-x*y*w]);
+F<a,b,c> := FunctionField(Cc);
+points := Points(Cc);
+p := points[9];
+cp := [];
+pls := [];
+for i in points do
+    if a(i)^63 eq 1 and b(i) ne b(p) and a(i) ne a(p) and c(i) ne c(p) then
+        Append(~pls, Place(i));
+    end if;
+end for;
+#pls;
+p1 := Cc ! [0,1,0,1];
+Q := Place(p1);
+G := 9*Q;
+pls1 := [pls[5],pls[24],pls[69],pls[79],pls[88],pls[132],pls[140],pls[148],pls[168],pls[191]];
+//[81,146]生成12长，[121, 130, 146] 生成13长。
+H := AGCode(pls1,G);
+H;
+MinimumDistance(H);
+/*
+k<u> := FiniteField(2^10);
+C1<x,y,z,w> := ProjectiveSpace(k,3);
+C := Curve(C1,[y^3-x^3+w^3, z^11-x*y*w^9]);
+F<a,b,c> := FunctionField(C);
+points := Points(C);
+#points;
+Genus(C);
+p := points[4];
+cp := [];
+pls := [];
+for i in points do
+    if a(i)^1023 eq 1 and b(i) ne b(p) and a(i) ne a(p) and c(i) ne c(p) then
+        Append(~pls, Place(i));
+    end if;
+end for;
+#pls;
+p1 := C ! [0,1,0,1];
+Q := Place(p1);
+G := 33*Q;
+pls1 := [pls[2*i+1] : i in [1..33]];
+H := AGCode(pls1,G);
+H;
+MinimumDistance(H);
+*/
+
+k<u> := FiniteField(13^2);
+C1<x,y> := AffineSpace(k,2);
+Cc := Curve(C1,[x^3+x+4-y^2]);
+E := EllipticCurve([1,k ! 4]);
+points := Points(E);
+points2 := [];
+points_odd := [];
+for i in [2..196] do
+    po := points[i];
+    if Order(po) eq 2 then 
+        Append(~points2,po);
+    elif Order(po) mod 2 eq 1 then
+        Append(~points_odd,po);
+    end if;
+end for;
+P2 := points2[1];
+P3 := points2[2];
+P4 := points2[3];
+pls := [];
+Append(~points_odd,P4);
+for i in [1..48] do
+    Q2 := P2 + points_odd[i];
+    Q3 := P3 + points_odd[i];
+    Qq2 := Cc ! [Q2[1],Q2[2]];
+    Qq3 := Cc ! [Q3[1],Q3[2]];
+    Append(~pls, Places(Qq2)[1]);
+    Append(~pls, Places(Qq3)[1]);
+end for;
+Q := Places(Cc,1)[1];
+G := 5*Q;
+H := AGCode(pls,G);
+H;
+MinimumDistance(H);
+
+p := 11^2;
+Fp<s> := GF(p);
+C1<x,y> := AffineSpace(Fp,2);
+Cc := Curve(C1,[x^3+1-y^2]);
+a := Fp!(0);
+b := Fp!(1);
+E := EllipticCurve([a,b]);
+all_points := RationalPoints(E);
+two_points := [ P : P in all_points | 2*P eq E!0 ];
+even_points := [ P : P in all_points | 4*P eq E!0 ];
+odd_points := [ P : P in all_points | 3*P eq E!0 ];
+T2 := two_points[2];
+T3 := two_points[3];
+R21 := even_points[2];
+R22 := even_points[15];
+Q21 := even_points[6];
+Q22 := even_points[7];
+Q_ := [R21+i: i in odd_points] cat [R22+i: i in odd_points] cat [Q21+i: i in odd_points] cat [Q22+i: i in odd_points];
+Q := [T2+i:i in Q_] cat [T3+i:i in Q_];
+pls := [Place(Cc ! [i[1],i[2]]):i in Q];
+G := Places(Cc,1)[1];
+G := 7*G;
+H := AGCode(pls,G);
+Length(H),Dimension(H),MinimumDistance(H);
+
+
+p := 17^2;
+Fp<s> := GF(p);
+C1<x,y> := AffineSpace(Fp,2);
+Cc := Curve(C1,[x^3+1-y^2]);
+a := Fp!(0);
+b := Fp!(1);
+E := EllipticCurve([a,b]);
+all_points := RationalPoints(E);
+two_points := [ P : P in all_points | 2*P eq E!0 ];
+odd_points := [ P : P in all_points | 9*P eq E!0 ];
+T2 := two_points[2];
+T3 := two_points[3];
+Q := [T2+i:i in odd_points] cat [T3+i:i in odd_points];
+pls := [Place(Cc ! [i[1],i[2]]):i in Q];
+G := Places(Cc,1)[1];
+G := 7*G;
+H := AGCode(pls,G);
+Length(H),Dimension(H),MinimumDistance(H);
+
+p := 19^2;
+Fp<s> := GF(p);
+C1<x,y> := AffineSpace(Fp,2);
+Cc := Curve(C1,[x^3+15*x-y^2]);
+a := Fp!(15);
+b := Fp!(0);
+E := EllipticCurve([a,b]);
+all_points := RationalPoints(E);
+two_points := [ P : P in all_points | 2*P eq E!0 ];
+even_points := [ P : P in all_points | 4*P eq E!0 ];
+odd_points := [ P : P in all_points | 5*P eq E!0 ];
+T2 := two_points[2];
+T3 := two_points[3];
+R21 := even_points[6];
+R22 := even_points[13];
+Q21 := even_points[11];
+Q22 := even_points[16];
+Q_ := [R21+i: i in odd_points] cat [R22+i: i in odd_points] cat [Q21+i: i in odd_points] cat [Q22+i: i in odd_points];
+Q := [T2+i:i in Q_] cat [T3+i:i in Q_];
+pls := [Place(Cc ! [i[1],i[2]]):i in Q];
+G := Places(Cc,1)[1];
+G := 7*G;
+H := AGCode(pls,G);
+Length(H),Dimension(H),MinimumDistance(H);
